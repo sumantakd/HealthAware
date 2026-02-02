@@ -43,3 +43,5 @@ Most basic balancers fall into the **"Black Hole Trap"**: A crashed server stops
    ```bash
    git clone [https://github.com/yourusername/HealthAware.git](https://github.com/yourusername/HealthAware.git)
    cd HealthAware
+2. pip install -r requirements.txt
+3. streamlit run app.py
