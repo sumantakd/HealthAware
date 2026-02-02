@@ -1,23 +1,23 @@
-# 🛡️ DynamicLoad: High-Availability Fault-Tolerant Balancer
+# 🛡️ HealthAware: Hardware-Centric Distributed Load Balancer
 
-**DynamicLoad** is a hardware-aware load balancing engine built with Python. It optimizes task routing across distributed network nodes using real-time telemetry and a Min-Heap data structure, ensuring zero-downtime through an integrated "Heartbeat" monitoring system.
+**HealthAware** is a high-availability load balancing engine built with Python. Unlike naive balancers that only look at traffic, HealthAware focuses on the "physical health" of the nodes—utilizing real-time telemetry and a Min-Heap data structure to ensure tasks are only routed to healthy, high-performance servers.
 
 ---
 
 ## 🚀 Key Features
 
-* **Real-Time Telemetry:** Interfaces with the OS kernel via `psutil` to fetch live CPU utilization metrics.
-* **$O(\log N)$ Algorithmic Routing:** Utilizes a **Min-Heap** priority queue to instantly identify the healthiest node in the network.
-* **Fault Tolerance (Heartbeat):** Implements a pre-processing guardrail that automatically detects and bypasses crashed or unresponsive nodes.
-* **High Observability Dashboard:** A reactive UI built with **Streamlit** featuring live metrics, status reports, and a manual "Crash Simulation" control panel.
-* **Fail-Safe Logic:** Graceful degradation handling for "Total System Failure" scenarios.
+* **Hardware-Centric Routing:** Interfaces with the OS kernel via `psutil` to fetch live CPU and memory metrics.
+* **$O(\log N)$ Algorithmic Logic:** Uses a **Min-Heap** priority queue to identify the healthiest node in constant time ($O(1)$ at the root).
+* **Fault Tolerance (Heartbeat):** Implements a pre-processing guardrail that detects and bypasses "Zombie" nodes (crashed servers reporting 0% load).
+* **High Observability UI:** A reactive dashboard built with **Streamlit** featuring live telemetry, network status reports, and a manual "Crash Simulation" panel.
+* **Fail-Safe Mode:** Graceful degradation logic for scenarios where the entire node registry fails.
 
 ---
 
 ## 🏗️ System Architecture
 
-1.  **Sensory Layer:** Collects hardware resource data from the local machine and simulates peer nodes.
-2.  **Logic Layer (The Brain):** Filters nodes based on health status (Heartbeat) and organizes them into a Min-Heap using **Lexicographical Tuple Comparison**.
+1.  **Sensory Layer:** Collects hardware resource data from the local machine and simulates peer nodes via API patterns.
+2.  **Logic Layer (The Brain):** Filters nodes based on health status and organizes them into a Min-Heap using **Lexicographical Tuple Comparison**.
 3.  **Presentation Layer (The Face):** Provides a Single Page Application (SPA) experience using **Atomic UI Updates** to prevent memory bloat.
 
 
@@ -26,13 +26,14 @@
 
 ## 🛠️ Technical Deep Dive
 
-### The "Black Hole" Prevention
-In distributed systems, a crashed server often reports **0% CPU usage**. A naive load balancer would see this "0" as the best option and send all traffic to a dead server. 
-**DynamicLoad** solves this by implementing a **Boolean Health Check** before the data enters the Min-Heap. If the Heartbeat fails, the node is quarantined, regardless of its reported load.
+### The "HealthAware" Difference
+Most basic balancers fall into the **"Black Hole Trap"**: A crashed server stops processes, leading to 0% CPU usage. A naive balancer sees "0" and incorrectly assumes that server is the best option. 
+**HealthAware** avoids this by requiring a **Boolean Heartbeat** before any load data is considered. If a server is offline, it is quarantined from the decision-making engine entirely.
 
-### Efficiency
-* **Selection:** $O(1)$ to peek at the root.
-* **Insertion/Re-balancing:** $O(\log N)$ using `heapq`.
+### Complexity Analysis
+* **Node Selection:** $O(1)$ (Peeking at the root).
+* **Queue Re-balancing:** $O(\log N)$ using `heapq`.
+* **Telemetry Fetch:** $O(1)$ per node.
 
 ---
 
@@ -40,5 +41,5 @@ In distributed systems, a crashed server often reports **0% CPU usage**. A naive
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/yourusername/DynamicLoad.git](https://github.com/yourusername/DynamicLoad.git)
-   cd DynamicLoad
+   git clone [https://github.com/yourusername/HealthAware.git](https://github.com/yourusername/HealthAware.git)
+   cd HealthAware
